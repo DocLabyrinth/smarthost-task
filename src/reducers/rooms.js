@@ -1,6 +1,6 @@
 import { ROOMS_SET_AVAILABLE } from '../actions/constants';
 
-const defaultState = {
+export const defaultState = {
   available: { premium: 0, economy: 0 },
 };
 
