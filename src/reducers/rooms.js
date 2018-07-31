@@ -2,12 +2,7 @@ import { ROOMS_SET_AVAILABLE } from '../actions/constants';
 
 const defaultState = {
   available: { premium: 0, economy: 0 },
-  usage: [
-    // {type: 'premium', price: 0}
-  ],
 };
-
-const calculateUsage = ({ available: { premium, economy } }) => {};
 
 const rooms = (state = defaultState, action) => {
   switch (action.type) {
@@ -24,9 +19,8 @@ const rooms = (state = defaultState, action) => {
         },
       };
 
-      newState.usage = calculateUsage(newState);
-
       return newState;
+
     default:
       return state;
   }

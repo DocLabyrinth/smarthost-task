@@ -5,17 +5,19 @@ import {
   Form,
   Grid,
   Header,
-  Image,
   Message,
   Segment,
 } from 'semantic-ui-react';
 
-import { setRoomCounts } from './actions/rooms';
-import logo from './logo.svg';
-import './App.css';
+import AssignedList from './components/AssignedList';
+import { assignRooms } from './utils';
 import { setAvailableRooms } from './actions/rooms';
+import './App.css';
 
-const mapStateToProps = ({ rooms: { available } }) => ({ available });
+const mapStateToProps = ({ rooms: { available }, customers }) => ({
+  available,
+  customers,
+});
 const mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
     setAvailableRooms: ({ premium, economy }) => {
@@ -55,9 +57,21 @@ class App extends PureComponent {
   onButtonClick = () => {
     if (this.state.premiumCountHasError || this.state.economyCountHasError)
       return;
-    this.props.setAvailableRooms({
+
+    const newRoomCounts = {
       premium: this.state.premiumCount,
       economy: this.state.economyCount,
+    };
+
+    this.props.setAvailableRooms(newRoomCounts);
+
+    const assignedRoomInfo = assignRooms({
+      customers: this.props.customers,
+      available: newRoomCounts,
+    });
+
+    this.setState({
+      assignedRoomInfo: assignedRoomInfo,
     });
   };
 
@@ -107,9 +121,9 @@ class App extends PureComponent {
                 </Button>
               </Segment>
             </Form>
-            <Message>
-              New to us? <a href="#">Sign Up</a>
-            </Message>
+            {this.state.assignedRoomInfo ? (
+              <AssignedList assignedRoomInfo={this.state.assignedRoomInfo} />
+            ) : null}
           </Grid.Column>
         </Grid>
       </div>
