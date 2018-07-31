@@ -1,13 +1,6 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
-import {
-  Button,
-  Form,
-  Grid,
-  Header,
-  Message,
-  Segment,
-} from 'semantic-ui-react';
+import { Button, Form, Grid, Header, Segment } from 'semantic-ui-react';
 
 import AssignedList from './components/AssignedList';
 import { assignRooms } from './utils';
@@ -92,7 +85,7 @@ class App extends PureComponent {
           verticalAlign="middle"
         >
           <Grid.Column style={{ maxWidth: 450 }}>
-            <Header as="h2" color="teal" textAlign="center" />
+            <Header as="h1" color="teal" textAlign="center" />
             <Form size="large">
               <Segment stacked>
                 <Header>Available rooms</Header>
